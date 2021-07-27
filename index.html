@@ -28,7 +28,7 @@
                     alert("Error");
                 };
             }).then(data =>{
-                fetch("http://rdap.apnic.net/ip/" + data.ip)
+                fetch("https://rdap.apnic.net/ip/" + data.ip)
                 .then(res =>{
                     if(res.ok){
                         return res.json();
