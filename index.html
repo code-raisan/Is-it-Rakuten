@@ -28,6 +28,7 @@
                     alert("Error");
                 };
             }).then(data =>{
+                let t = "https://rdap.apnic.net/ip/" + data.ip;
                 fetch("https://rdap.apnic.net/ip/" + data.ip)
                 .then(res =>{
                     if(res.ok){
@@ -38,7 +39,7 @@
                 }).then(data =>{
                     const host = data.remarks[0].description[0];
                     console.log(host);
-                    host_name_display.innerText = "https://rdap.apnic.net/ip/" + data.ip;
+                    host_name_display.innerText = t;
                     if(host === "Rakuten Mobile, Inc."){
                         nav.style.backgroundColor = "#ff73f3";
                         nav.innerText = "Rakuten Area";
