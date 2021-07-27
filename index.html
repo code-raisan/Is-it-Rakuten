@@ -36,7 +36,8 @@
                         alert("Error");
                     };
                 }).then(data =>{
-                    const host = data.remarks;
+                    const host = data.remarks[0].description[0];
+                    console.log(host);
                     host_name_display.innerText = host;
                     if(host === "Rakuten Mobile, Inc."){
                         nav.style.backgroundColor = "#ff73f3";
