@@ -20,7 +20,7 @@
         const host_name_display = document.getElementById("host");
 
         window.onload = () =>{
-            fetch("https://net-info.ml")
+            fetch("https://limetools.info/whois.php")
             .then(res =>{
                 if(res.ok){
                     return res.json();
@@ -28,28 +28,14 @@
                     alert("Error");
                 };
             }).then(data =>{
-                let t = "https://rdap.apnic.net/ip/" + data.ip;
-                fetch("https://rdap.apnic.net/ip/" + data.ip)
-                .then(res =>{
-                    if(res.ok){
-                        return res.json();
-                    }else{
-                        alert("Error");
-                    };
-                }).then(data =>{
-                    const host = data.remarks[0].description[0];
-                    console.log(host);
-                    host_name_display.innerText = t;
-                    if(host === "Rakuten Mobile, Inc."){
-                        nav.style.backgroundColor = "#ff73f3";
-                        nav.innerText = "Rakuten Area";
-                    }else{
-                        nav.style.backgroundColor = "#fac575";
-                        nav.innerText = "Partner Area";
-                    }
-                }).catch(e =>{
-                    alert(`Error: ${e}`);
-                });
+                host_name_display.innerText = data.host;
+                if(data.host === "Rakuten Mobile, Inc."){
+                    nav.style.backgroundColor = "#ff73f3";
+                    nav.innerText = "Rakuten Area";
+                }else{
+                    nav.style.backgroundColor = "#fac575";
+                    nav.innerText = "Partner Area";
+                }
             }).catch(e =>{
                 alert(`Error: ${e}`);
             });
