@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <title>Is it Rakuten</title>
+</head>
+<body>
+    <main class="container" style="margin-top: 20px;">
+        <h1>Is it Rakuten?</h1>
+        <div style="margin-top: 20px;">
+            <p id="nav" class="" style="padding: 25px; background-color: #b3b3b3; border-radius: 1rem; width: 100%; color: #ffffff; text-align: center; font-size: 3rem;">Loading...</p>
+        </div>
+        <p id="host"></p>
+    </main>
+    <script>
+        const nav = document.getElementById("nav");
+        const host_name_display = document.getElementById("host");
+
+        window.onload = () =>{
+            fetch("https://net-info.ml")
+            .then(res =>{
+                if(res.ok){
+                    return res.json();
+                }else{
+                    alert("Error");
+                };
+            }).then(data =>{
+                fetch("http://rdap.apnic.net/ip/" + data.ip)
+                .then(res =>{
+                    if(res.ok){
+                        return res.json();
+                    }else{
+                        alert("Error");
+                    };
+                }).then(data =>{
+                    const host = data.remarks[0].description[0];
+                    host_name_display.innerText = host;
+                    if(host === "Rakuten Mobile, Inc."){
+                        nav.style.backgroundColor = "#ff73f3";
+                        nav.innerText = "Rakuten Area";
+                    }else{
+                        nav.style.backgroundColor = "#fac575";
+                        nav.innerText = "Partner Area";
+                    }
+                }).catch(e =>{
+                    alert(`Error: ${e}`);
+                });
+            }).catch(e =>{
+                alert(`Error: ${e}`);
+            });
+        }
+    </script>
+</body>
+</html>
