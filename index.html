@@ -38,7 +38,7 @@
                 }).then(data =>{
                     const host = data.remarks[0].description[0];
                     console.log(host);
-                    host_name_display.innerText = host;
+                    host_name_display.innerText = "https://rdap.apnic.net/ip/" + data.ip;
                     if(host === "Rakuten Mobile, Inc."){
                         nav.style.backgroundColor = "#ff73f3";
                         nav.innerText = "Rakuten Area";
